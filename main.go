@@ -1,4 +1,4 @@
-package main
+package gomojicount
 
 import (
 	"fmt"
@@ -40,6 +40,12 @@ func (gmji *GoMoji) values() {
 			fmt.Printf("%+v\n", rec)
 		}
 	}
+}
+
+func GetEmojiFrequencyCount(text string) {
+	gm := GoMoji{}
+	gm.process(text)
+	gm.values()
 }
 
 func main() {

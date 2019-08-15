@@ -1,6 +1,4 @@
-package main
-
-// package gomojicount
+package gomojicount
 
 import (
 	"fmt"

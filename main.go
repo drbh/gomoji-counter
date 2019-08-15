@@ -1,4 +1,6 @@
-package gomojicount
+package main
+
+// package gomojicount
 
 import (
 	"fmt"
@@ -29,7 +31,13 @@ func (gmji *GoMoji) process(longList string) {
 	gmji.Emojis = sm
 }
 
-func (gmji *GoMoji) values() {
+type EmojiFreq struct {
+	emoji string
+	count int
+}
+
+func (gmji *GoMoji) values() []EmojiFreq {
+	var vals = []EmojiFreq{}
 	iterCh, err := gmji.Emojis.IterCh()
 	if err != nil {
 		fmt.Println(err)
@@ -37,15 +45,20 @@ func (gmji *GoMoji) values() {
 		defer iterCh.Close()
 
 		for rec := range iterCh.Records() {
-			fmt.Printf("%+v\n", rec)
+			// fmt.Printf("%+v\n", rec)
+			vals = append(vals, EmojiFreq{
+				rec.Key.(string),
+				rec.Val.(int),
+			})
 		}
 	}
+	return vals
 }
 
-func GetEmojiFrequencyCount(text string) {
+func GetEmojiFrequencyCount(text string) []EmojiFreq {
 	gm := GoMoji{}
 	gm.process(text)
-	gm.values()
+	return gm.values()
 }
 
 func main() {
@@ -54,10 +67,10 @@ func main() {
 
 	gm := GoMoji{}
 	gm.process(longList)
-	gm.values()
+	fmt.Println(gm.values())
 
 	longList = "💪 arms!"
 
 	gm.process(longList)
-	gm.values()
+	fmt.Println(gm.values())
 }

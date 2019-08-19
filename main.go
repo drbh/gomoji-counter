@@ -30,8 +30,8 @@ func (gmji *GoMoji) process(longList string) {
 }
 
 type EmojiFreq struct {
-	emoji string
-	count int
+	Emoji string
+	Count int
 }
 
 func (gmji *GoMoji) values() []EmojiFreq {

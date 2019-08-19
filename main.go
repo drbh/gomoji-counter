@@ -17,7 +17,7 @@ func (gmji *GoMoji) process(longList string) {
 	runes_array := []rune(longList)
 
 	for _, v := range runes_array {
-		if v > 127 && v != 65039 && v != 8205 {
+		if v > 127 && v > 160 && v != 65039 && v != 8205 {
 			if val, ok := sm.Get(string(v)); ok {
 				newcount := val.(int) + 1
 				sm.Replace(string(v), newcount)
